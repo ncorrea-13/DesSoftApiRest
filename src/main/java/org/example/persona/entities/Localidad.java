@@ -1,6 +1,7 @@
 package org.example.persona.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -14,20 +15,16 @@ import java.util.Set;
 @Table
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Audited
-@EqualsAndHashCode(exclude = { "libros" })
-public class Persona implements Serializable {
-
+@EqualsAndHashCode(exclude = { "domicilios" })
+public class Localidad implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nombre;
-    private String apellido;
-    private int dni;
 
-    @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Libro> libros = new HashSet<Libro>();
+    private String denominacion;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Domicilio domicilio;
+    @OneToMany(mappedBy = "localidad", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Domicilio> domicilios = new HashSet<Domicilio>();
 }
